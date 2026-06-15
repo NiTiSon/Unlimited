@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net10.0;net8.0;net7.0;net5.0;net4.8;netstandard2.0</TargetFrameworks>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>8.0</LangVersion>
+
+		<Version>1.0</Version>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<WarningsAsErrors>true</WarningsAsErrors>
+
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>symbols.nupkg</SymbolPackageFormat>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(CI)' == 'true'">
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">
+		<IsAotCompatible>true</IsAotCompatible>
+		<EnableAotAnalyzer>true</EnableAotAnalyzer>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">
+		<IsTrimmable>true</IsTrimmable>
+		<EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+		<TrimMode>full</TrimMode>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+		<PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1" PrivateAssets="All"/>
+		<PackageReference Include="DotNet.ReproducibleBuilds.Isolated" Version="1.1.1" PrivateAssets="All"/>
+	</ItemGroup>
+
+</Project>
